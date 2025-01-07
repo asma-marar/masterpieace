@@ -7,12 +7,12 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OrderProductController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\User\LandingPageController;
-use App\Models\User;
+use App\Models\Review;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,26 +29,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', [LandingPageController::class, 'index']);
 
-
-
-// Route::get('/about-us', function () {
-//     return view('front.about-us');
-// });
-
-Route::get('/contact', function () {
-    return view('front.contact');
+Route::get('user-page', function () {
+    return view('front.user-page');
 });
-
-Route::get('/cart', function () {
-    return view('front.cart');
-});
-
-// Route::get('/product-detail', function () {
-//     return view('front.product-detail');
-// });
-
 
 Auth::routes();
 
@@ -84,9 +68,14 @@ Route::prefix('admin')->middleware(['auth' , 'isAdmin'])->group(function(){
     Route::get('contact', [ContactController::class, 'index']);
     Route::post('update-contact-status/{contact_id}', [ContactController::class, 'updateStatus']);
     Route::delete('delete-contact/{contact_id}', [ContactController::class, 'delete']);
+    Route::post('mark-seen/{id}', [ContactController::class, 'markSeen']);
+
 
     Route::get('orderproduct/{order_id}', [OrderController::class, 'view']);
     
+    Route::get('review', [ReviewController::class, 'index']);
+    Route::delete('delete-review/{review_id}', [ReviewController::class, 'delete']);
+
 
 });
 

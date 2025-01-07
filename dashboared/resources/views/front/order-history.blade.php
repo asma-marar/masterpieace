@@ -40,12 +40,27 @@
                                             </td>
                                             <td class="stext-115 cl6 p-tb-8">${{ number_format($order->order_total, 2) }}</td>
                                             <td class="stext-115 cl6 p-tb-8">
-                                                <button class="flex-c-m stext-101 cl0 size-111 bg1 bor1 hov-btn1 p-lr-15 trans-04" 
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#orderDetailModal{{ $order->id }}">
-                                                    View
-                                                </button>
+                                                <div class="d-inline-flex gap-2">
+                                                    <!-- View Button -->
+                                                    <button class="flex-c-m stext-101 cl0 size-111 bg1 bor1 hov-btn1 p-lr-15 trans-04" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#orderDetailModal{{ $order->id }}">
+                                                        View
+                                                    </button>
+                                                    
+                                                    <!-- Rate Seller Button -->
+                                                    @if($order->order_status === 'delivered' && $order->hasUnratedSellers)
+                                                    <button class="flex-c-m stext-101 cl0 size-111 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                                        <a href="{{ route('user.rating.create', ['order_id' => $order->id]) }}" class="text-white">
+                                                            Rate 
+                                                        </a>
+                                                    </button>
+                                                    @endif
+                                                
+                                                </div>
                                             </td>
+                                            
+                                            
                                         </tr>
                                     @empty
                                         <tr>

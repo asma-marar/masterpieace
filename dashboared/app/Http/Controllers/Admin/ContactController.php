@@ -57,5 +57,20 @@ class ContactController extends Controller
         return redirect('admin/contact')->with('error', 'Contact not found');
     }
 
+    public function markSeen($id)
+{
+    $contact = Contact::find($id);
+    
+    if ($contact) {
+        $contact->status = 'seen';
+        $contact->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false]);
+}
+
+
     
 }

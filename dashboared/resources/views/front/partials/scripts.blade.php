@@ -156,75 +156,74 @@ $(document).ready(function() {
 
 	{{-- add to wishlist --}}
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			// Debug check to ensure JavaScript is running
-			console.log('Script loaded');
-			
-			$('.wishlist-toggle').on('click', function(e) {
-				// Debug check to ensure click is captured
-				console.log('Clicked');
-				
-				e.preventDefault();
-				e.stopPropagation();
-				
-				var $this = $(this);
-				var $icon = $this.find('i');
-				var productId = $this.data('product-id');
-				
-				// Debug check for product ID
-				console.log('Product ID:', productId);
-				
-				$.ajax({
-					url: "{{ route('user.wishlist.add') }}",
-					type: 'POST',
-					data: {
-						product_id: productId,
-						_token: '{{ csrf_token() }}'
-					},
-					success: function(response) {
-						console.log('Success:', response);
-						if (response.status === 'added') {
-							$icon.removeClass('zmdi-favorite-outline').addClass('zmdi-favorite text-danger');
-						} else {
-							$icon.removeClass('zmdi-favorite text-danger').addClass('zmdi-favorite-outline');
-						}
-					},
-					error: function(xhr, status, error) {
-						// Debug check for errors
-						console.log('Error:', error);
-					}
-				});
-				
-				return false;
-			});
-		});
-		</script>
+// Wishlist Script
+document.addEventListener('DOMContentLoaded', function() {
+    function updateWishlistCount(count) {
+        // Only update wishlist notification badge
+        $('[data-wishlist-count]').attr('data-notify', count);
+    }
 
-{{-- the cart script to add --}}
-<script>
-	$('.cart-toggle').on('click', function(e) {
-		e.preventDefault();
-		var $this = $(this);
-		var $icon = $this.find('i');
-		
-		$.ajax({
-			url: "{{ route('user.cart.add') }}",
-			type: 'POST',
-			data: {
-				product_id: $this.data('product-id'),
-				_token: '{{ csrf_token() }}'
-			},
-			success: function(response) {
-				if (response.status === 'added') {
-					$icon.removeClass('zmdi-shopping-cart-plus').addClass('zmdi-shopping-cart text-primary');
-				} else {
-					$icon.removeClass('zmdi-shopping-cart text-primary').addClass('zmdi-shopping-cart-plus');
-				}
-				updateCartCount();
-			}
-		});
-	});
-</script>
+    $('.wishlist-toggle').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $icon = $this.find('i');
+        var productId = $this.data('product-id');
+        
+        $.ajax({
+            url: "{{ route('user.wishlist.add') }}",
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                product_id: productId
+            },
+            success: function(response) {
+                if (response.status === 'added') {
+                    $icon.removeClass('zmdi-favorite-outline').addClass('zmdi-favorite text-danger');
+                    updateWishlistCount(response.count);
+                } else if (response.status === 'removed') {
+                    $icon.removeClass('zmdi-favorite text-danger').addClass('zmdi-favorite-outline');
+                    updateWishlistCount(response.count);
+                }
+            },
+			error: function(xhr) {
+    if (xhr.status === 401) {
+        Swal.fire({
+            title: 'Please Login',
+            text: 'You need to be logged in to add items to cart',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Login Now',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('user.login') }}";
+            }
+        });
+    } else if (xhr.status === 403) {
+        Swal.fire({
+            title: 'Error',
+            text: 'You cannot add your own product to cart',
+            icon: 'error'
+        });
+    } else {
+        Swal.fire({
+            title: 'Error',
+            text: 'An error occurred',
+            icon: 'error'
+        });
+    }
+}
+        });
+    });
+});
+	</script>
+	
+
+	
+
 
 {{-- all cart scripts --}}
 <script>
@@ -330,6 +329,133 @@ $(document).ready(function() {
 		}
 	});
 		</script>
+
+{{-- the script related tothe icon and add to cart button --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function updateCartCount(count) {
+        $('.icon-header-noti[href$="cart"]').attr('data-notify', count);
+    }
+
+    function updateButtonState($button, isInCart) {
+        if (isInCart) {
+            $button.text('Remove from Cart');
+            $button.removeClass('bg1').addClass('bg-danger');
+        } else {
+            $button.text('Add to Cart');
+            $button.removeClass('bg-danger').addClass('bg1');
+        }
+    }
+
+    function handleCartToggle($element, isButton = false) {
+        $.ajax({
+            url: "{{ route('user.cart.add') }}",
+            type: 'POST',
+            data: {
+                product_id: $element.data('product-id'),
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if (response.status === 'added') {
+                    if (isButton) {
+                        updateButtonState($element, true);
+                    } else {
+                        $element.find('i')
+                            .removeClass('zmdi-shopping-cart-plus')
+                            .addClass('zmdi-shopping-cart text-primary');
+                    }
+                } else {
+                    if (isButton) {
+                        updateButtonState($element, false);
+                    } else {
+                        $element.find('i')
+                            .removeClass('zmdi-shopping-cart text-primary')
+                            .addClass('zmdi-shopping-cart-plus');
+                    }
+                }
+                updateCartCount(response.cartCount);
+            },
+            error: function(xhr) {
+    if (xhr.status === 401) {
+        Swal.fire({
+            title: 'Please Login',
+            text: 'You need to be logged in to add items to cart',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Login Now',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('user.login') }}";
+            }
+        });
+    } else if (xhr.status === 403) {
+        Swal.fire({
+            title: 'Error',
+            text: 'You cannot add your own product to cart',
+            icon: 'error'
+        });
+    } else {
+        Swal.fire({
+            title: 'Error',
+            text: 'An error occurred',
+            icon: 'error'
+        });
+    }
+}
+        });
+    }
+
+    $('.cart-toggle.size-112').on('click', function(e) {
+        e.preventDefault();
+        handleCartToggle($(this), true);
+    });
+
+    $('.cart-toggle.icon-header-item').on('click', function(e) {
+        e.preventDefault();
+        handleCartToggle($(this), false);
+    });
+
+    function checkCartState() {
+        $('.cart-toggle.size-112').each(function() {
+            var $button = $(this);
+            var productId = $button.data('product-id');
+            
+            $.ajax({
+                url: "{{ route('user.cart.check') }}",
+                type: 'GET',
+                data: {
+                    product_id: productId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    updateButtonState($button, response.inCart);
+                }
+            });
+        });
+    }
+
+    checkCartState();
+});
+		</script>
+
+{{-- script for the navbar --}}
+<script>
+	document.querySelectorAll('.main-menu li a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    // Remove active class from all items
+    document.querySelector('.active-menu')?.classList.remove('active-menu');
+    
+    // Add active class to clicked item's parent li
+    this.parentElement.classList.add('active-menu');
+  });
+});
+</script>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
 
 
 

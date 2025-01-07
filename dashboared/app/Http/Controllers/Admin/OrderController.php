@@ -10,8 +10,8 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('user')
-            ->select('id', 'user_id', 'order_total', 'order_status', 'order_address', 'created_at')
+        $orders = Order::with('customer')
+            ->select('id', 'customer_id', 'order_total', 'order_status', 'order_address', 'created_at')
             ->get();
 
         // Pass orders data to the view
@@ -59,7 +59,7 @@ class OrderController extends Controller
 
 
         $order  = Order::with([
-            'user',               // To get user data
+            'customer',               // To get user data
             'orderProducts.product'  // To load products related to orderProducts (includes product name)
         ])->find($order_id);
 

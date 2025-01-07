@@ -20,7 +20,6 @@
         <table id="exampleTable" class="table table-boardered">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Category Name</th>
                     <th>Category description</th>
                     <th>Image</th>
@@ -33,7 +32,6 @@
                 @foreach ($category as $item )
                     
                 <tr>
-                    <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->description }}</td>
                     <td>

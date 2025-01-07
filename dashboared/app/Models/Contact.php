@@ -8,18 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contact extends Model
 {
-    use HasFactory , SoftDeletes;
+    use HasFactory ;
     protected $table = 'contacts';
 
-    protected $fillable = [
-        'user_id',
-        'message',
-        'status',
-    ];
+    protected $fillable = ['customer_id', 'message'];
 
 
-    public function user()
+
+    public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Customer::class);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Cart;
+use App\Models\CartItem;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\View;
@@ -24,10 +26,27 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $wishlistCount = 0;
+            $cartCount = 0;
+    
             if (Auth::guard('customer')->check()) {
-                $wishlistCount = Wishlist::where('customer_id', Auth::guard('customer')->user()->id)->count();
+                $customerId = Auth::guard('customer')->id();
+                
+                // Get wishlist count
+                $wishlistCount = Wishlist::where('customer_id', $customerId)->count();
+                
+                // Get cart count
+                $cart = Cart::where('customer_id', $customerId)->first();
+                if ($cart) {
+                    // Use the same counting method as the controller
+                    $cartCount = CartItem::where('cart_id', $cart->id)->sum('quantity');
+                }
             }
-            $view->with('wishlistCount', $wishlistCount);
+            
+            $view->with([
+                'wishlistCount' => $wishlistCount,
+                'cartCount' => $cartCount
+            ]);
         });
     }
+    
 }

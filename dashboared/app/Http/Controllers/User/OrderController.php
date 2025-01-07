@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\CartItem;
-use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
@@ -19,9 +18,13 @@ class OrderController extends Controller
 {
     public function index()
     {
-
         $customer = Auth::guard('customer')->user();
-        $cartItem = CartItem::with('product')->get();
+        $cartItem = CartItem::with('product')
+            ->whereHas('cart', function($query) use ($customer) {
+                $query->where('customer_id', $customer->id);
+            })
+            ->get();
+            
         return view('front.order-detail', compact('customer', 'cartItem'));
     }
 
@@ -30,40 +33,30 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
     
-            // Get logged-in customer
             $customerId = auth('customer')->id();
             if (!$customerId) {
-                return redirect()->back()->with('error', 'Customer is not logged in.');
+                return redirect()->route('login')->with('error', 'Please log in first.');
             }
     
-            // Get cart for the customer
             $cart = Cart::where('customer_id', $customerId)->first();
-            if (!$cart) {
-                return redirect()->back()->with('error', 'No cart found for the logged-in customer.');
+            if (!$cart || $cart->items->isEmpty()) {
+                return redirect()->back()->with('error', 'Cart is empty.');
             }
     
-            // Get cart items
-            $cartItems = CartItem::where('cart_id', $cart->id)
-                ->with('product')
-                ->get();
+            $cartItems = $cart->items;
+            $subtotal = $cartItems->sum(fn($item) => $item->product->price * $item->quantity);
     
-            if ($cartItems->isEmpty()) {
-                return redirect()->back()->with('error', 'Your cart is empty.');
-            }
-    
-            // Calculate totals
-            $subtotal = 0;
+            // Check product quantities before proceeding
             foreach ($cartItems as $item) {
-                if (!$item->product) {
-                    return redirect()->back()->with('error', 'Product not found for a cart item.');
+                if ($item->quantity > $item->product->quantity) {
+                    DB::rollback();
+                    return redirect()->back()->with('error', "Insufficient stock for {$item->product->name}. Only {$item->product->quantity} available.");
                 }
-                $subtotal += $item->product->price * $item->quantity;
             }
     
             $shipping = 5.00;
             $total = $subtotal + $shipping;
     
-            // Create order
             $order = Order::create([
                 'customer_id' => $customerId,
                 'order_total' => $total,
@@ -72,26 +65,29 @@ class OrderController extends Controller
             ]);
     
             foreach ($cartItems as $item) {
+                // Create order product entry
                 OrderProduct::create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'quantity' => $item->quantity,
                     'price' => $item->product->price,
                 ]);
+    
+                // Update product quantity
+                $item->product->decrement('quantity', $item->quantity);
             }
     
-            // Clear cart items
-            CartItem::where('cart_id', $cart->id)->delete();
-    
+            $cart->items()->delete();
             DB::commit();
     
             return redirect()->route('user.orders.success')->with('success', 'Order placed successfully!');
         } catch (\Exception $e) {
             DB::rollback();
-            Log::error('Order Store Error: ' . $e->getMessage());
+            Log::error('Order Error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Something went wrong. Please try again.');
         }
     }
+
     
 
     public function success()
@@ -114,5 +110,6 @@ class OrderController extends Controller
     
         return view('front.order-history', compact('orders'));
     }
+    
     
 }

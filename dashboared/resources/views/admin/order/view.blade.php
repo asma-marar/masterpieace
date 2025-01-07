@@ -8,55 +8,45 @@
 
     <div class="card mt-4">
         <div class="card-header">
-            <h4> View Order Details </h4>
+            <h4>View Order Details</h4>
         </div>
-    <div class="card-body">
+        <div class="card-body">
 
-        @if(session('message'))
-        <div class="alert alert-success">{{ session('message') }}
-        </div>
-        @endif
+            @if(session('message'))
+            <div class="alert alert-success">{{ session('message') }}</div>
+            @endif
 
-        <table id="exampleTable" class="table table-boardered">
-            <thead>
-                <tr>
-                    <th>Order Address</th>
-                    <th>Order Date</th>
-                    <th>Total</th>
-
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                    
-                <tr>
-                    <td rowspan="{{ $order->orderProducts->count() + 1 }}">{{ $order->order_address }}</td> <!-- Order Address, spanning rows -->
-                    <td rowspan="{{ $order->orderProducts->count() + 1 }}">{{ $order->created_at }}</td> <!-- Order Date, spanning rows -->
-                    <td rowspan="{{ $order->orderProducts->count() + 1 }}">{{ $order->order_total }}</td> <!-- Total, spanning rows -->
-
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Order Address</th>
+                        <th>Order Date</th>
+                        <th>Total</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach ($order->orderProducts as $index => $orderProduct)
-                        <!-- Displaying each product in a separate row -->
-                        @if ($index == 0) <!-- For the first product, display the other columns, others just show products -->
-                            <td>{{ $orderProduct->product->name }}</td> <!-- Product Name -->
-                            <td>{{ $orderProduct->quantity }}</td> <!-- Quantity -->
-                            <td>{{ $orderProduct->price }}</td> <!-- Price -->
-                        </tr>
-                        @else
-                            <tr>
-                                <td>{{ $orderProduct->product->name }}</td> <!-- Product Name -->
-                                <td>{{ $orderProduct->quantity }}</td> <!-- Quantity -->
-                                <td>{{ $orderProduct->price }}</td> <!-- Price -->
-                            </tr>
-                        @endif
-                    @endforeach
-                </tr>
+                        <tr>
+                            <!-- Only show the address, date, and total once (in the first row) -->
+                            @if ($index == 0)
+                                <td rowspan="{{ $order->orderProducts->count() }}">{{ $order->order_address }}</td>
+                                <td rowspan="{{ $order->orderProducts->count() }}">{{ $order->created_at }}</td>
+                                <td rowspan="{{ $order->orderProducts->count() }}">{{ $order->order_total }}</td>
+                            @endif
 
-            </tbody>
-        </table>
-    </div>
+                            <!-- Product Details -->
+                            <td>{{ $orderProduct->product->name }}</td>
+                            <td>{{ $orderProduct->quantity }}</td>
+                            <td>{{ $orderProduct->price }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+        </div>
     </div>
 
 </div>

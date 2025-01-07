@@ -8,6 +8,9 @@
             <a class="nav-link dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 {{ Request::is('user/profile/add') ? 'active' : '' }}" href="{{ route('user.profile.add') }}">
                 <i class="zmdi zmdi-shopping-cart m-r-10"></i> Add Product
             </a>
+            <a class="nav-link dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 active" href="{{ route('user.profile.products') }}">
+                <i class="zmdi zmdi-assignment m-r-10"></i> Your Products
+            </a>
             <a class="nav-link dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 {{ Request::is('user/order/show') ? 'active' : '' }}" href="{{ route('user.orders.show') }}">
                 <i class="zmdi zmdi-time m-r-10"></i> Order History
             </a>

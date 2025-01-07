@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -69,5 +69,15 @@ class Customer extends Authenticatable
     {
         return $this->hasMany(Order::class, 'customer_id');
     }
+    
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'rated_customer_id');
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
 }

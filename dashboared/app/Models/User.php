@@ -50,20 +50,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function contacts()
-    {
-        return $this->hasMany(Contact::class);
-    }
-
-    public function reviews()
-    {
-        return $this->hasMany(Review::class, 'intermediary_id');
-    }
-
-    // Reviews made by this user
-    public function givenReviews()
-    {
-        return $this->hasMany(Review::class, 'user_id');
-    }
 }

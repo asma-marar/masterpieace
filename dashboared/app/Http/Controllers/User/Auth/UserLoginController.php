@@ -16,7 +16,7 @@ class UserLoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest:customer')->except('logout');
-       
+
     }
 
     public function login(){

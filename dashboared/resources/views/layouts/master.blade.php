@@ -42,7 +42,6 @@
             </div>
         </div>
 
-        @include('inc.admin-footer')
 
             
     </div>       

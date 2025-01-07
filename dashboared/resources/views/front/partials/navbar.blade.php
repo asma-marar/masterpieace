@@ -2,71 +2,35 @@
 	<header class="@yield('header-class')">
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
-			<!-- Topbar -->
-			<div class="top-bar">
-				<div class="content-topbar flex-sb-m h-full container">
-					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
 
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							My Account
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
-						</a>
-					</div>
-				</div>
-			</div>
-
+			@php
+			$currentRoute = Route::currentRouteName();
+		    @endphp
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
 					<a href="#" class="logo">
-						<img src="{{ asset ('front-assets')}}/images/icons/logo-01.png" alt="IMG-LOGO">
+						<img src="{{ asset ('front-assets')}}/images/icons/1234.png" alt="IMG-LOGO" style="height: auto; width: 200px">
 					</a>
 
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li class="active-menu">
-								<a href="{{ route('user.home') }}">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
+							<li class="{{ $currentRoute == 'home' ? 'active-menu' : '' }}">
+								<a href="{{ route('home') }}">Home</a>
 							</li>
 
-							<li>
-								<a href="{{ route('user.products') }}">Shop</a>
+							<li class="{{ $currentRoute == 'products' ? 'active-menu' : '' }}">
+								<a href="{{ route('products') }}">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Features</a>
+							<li class="{{ $currentRoute == 'about-us' ? 'active-menu' : '' }}">
+								<a href="{{ route('about-us') }}">About</a>
 							</li>
 
-							<li>
-								<a href="blog.html">Blog</a>
-							</li>
-
-							<li>
-								<a href="about.html">About</a>
-							</li>
-
-							<li>
-								<a href="contact.html">Contact</a>
+							<li class="{{ $currentRoute == 'contact' ? 'active-menu' : '' }}">
+								<a href="{{ route('contact') }}">Contact</a>
 							</li>
 						</ul>
 					</div>	
@@ -79,20 +43,20 @@
 						</div> --}}
 					
 						<!-- Cart Icon -->
-						<a href="{{ route('user.cart') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
+						<a href="{{ route('cart') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{ $cartCount }}">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" style="width: 24px; height: 24px; color: black;">
 								<circle cx="9" cy="21" r="1"></circle>
 								<circle cx="20" cy="21" r="1"></circle>
 								<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-							  </svg>
-							  
+							</svg>
 						</a>
 
 					
 						<!-- Favorite Icon -->
-						<a href="{{ route('user.wishlist') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{ $wishlistCount }}">
+						<a href="{{ route('wishlist') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{ $wishlistCount }}" data-wishlist-count>
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
+						
 
 						<a href="{{ route('user.profile') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
 							<i class="zmdi zmdi-account"></i>
@@ -101,35 +65,41 @@
 					
 						<!-- Authentication Links -->
 						@guest('customer')
+						<div class="d-flex justify-content-center" style="gap: 20px;">
 							@if (Route::has('login'))
-								<a href="{{ route('user.login') }}" class="dis-block cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+								<a href="{{ route('user.login') }}" class="flex-c-m stext-101 cl0 size-112 bg1 bor1 hov-btn1 p-lr-15 trans-04 m-b-10" style="width: 100px;">
 									{{ __('Login') }}
 								</a>
 							@endif
 					
 							@if (Route::has('register'))
-								<a href="{{ route('user.register') }}" class="dis-block cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+								<a href="{{ route('user.register') }}" class="flex-c-m stext-101 cl0 size-112 bg1 bor1 hov-btn1 p-lr-15 trans-04 m-b-10" style="width: 100px;">
 									{{ __('Register') }}
 								</a>
 							@endif
-						@else
-							<!-- User Dropdown -->
-							<div class="dropdown">
-								<a href="#" class="dis-block cl2 hov-cl1 trans-04 p-l-22 p-r-11 dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									{{ Auth::guard('customer')->user()->name }}
+						</div>
+					@else
+						<!-- User Dropdown -->
+						<div class="dropdown">
+							<a href="#" class="dis-block cl2 hov-cl1 trans-04 p-l-22 p-r-11 dropdown-toggle text-decoration-none d-flex align-items-center" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="zmdi zmdi-account-circle" style="font-size: 20px; margin-right: 12px;"></i>
+								<span>{{ Auth::guard('customer')->user()->name }}</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="navbarDropdown">
+								<a href="{{ route('user.logout') }}" 
+								   class="dropdown-item py-2"
+								   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+									<i class="zmdi zmdi-power me-2"></i> {{ __('Logout') }}
 								</a>
-								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-									<a href="{{ route('user.logout') }}" class="dropdown-item"
-									   onclick="event.preventDefault();
-												 document.getElementById('logout-form').submit();">
-										{{ __('Logout') }}
-									</a>
-									<form id="logout-form" action="{{ route('user.logout') }}" method="POST" class="d-none">
-										@csrf
-									</form>
-								</div>
+								<form id="logout-form" action="{{ route('user.logout') }}" method="POST" class="d-none">
+									@csrf
+								</form>
 							</div>
-						@endguest
+						</div>
+					@endguest
+					
+					
+					
 					</div>
 					
 				</nav>
@@ -140,22 +110,29 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html"><img src="{{ asset ('front-assets')}}/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="index.html"><img src="{{ asset ('front-assets')}}/images/icons/1234.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-					<i class="zmdi zmdi-search"></i>
-				</div>
+						<a href="{{ route('cart') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{ $cartCount }}">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart" style="width: 24px; height: 24px; color: black;">
+								<circle cx="9" cy="21" r="1"></circle>
+								<circle cx="20" cy="21" r="1"></circle>
+								<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+							</svg>
+						</a>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
-					<i class="zmdi zmdi-shopping-cart"></i>
-				</div>
+						<!-- Favorite Icon -->
+						<a href="{{ route('wishlist') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{ $wishlistCount }}" data-wishlist-count>
+							<i class="zmdi zmdi-favorite-outline"></i>
+						</a>
 
-				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
-					<i class="zmdi zmdi-favorite-outline"></i>
-				</a>
+						<a href="{{ route('user.profile') }}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+							<i class="zmdi zmdi-account"></i>
+						</a>
+
+
 			</div>
 
 			<!-- Button show menu -->
@@ -169,65 +146,22 @@
 
 		<!-- Menu Mobile -->
 		<div class="menu-mobile">
-			<ul class="topbar-mobile">
-				<li>
-					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
-				</li>
-
-				<li>
-					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							My Account
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
-						</a>
-					</div>
-				</li>
-			</ul>
 
 			<ul class="main-menu-m">
-				<li>
-					<a href="index.html">Home</a>
-					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
+				<li  class="{{ $currentRoute == 'home' ? 'active-menu' : '' }}">
+					<a href="{{ route('home') }}">Home</a>
 				</li>
 
-				<li>
-					<a href="product.html">Shop</a>
+				<li  class="{{ $currentRoute == 'products' ? 'active-menu' : '' }}">
+					<a href="{{ route('products') }}">Shop</a>
 				</li>
 
-				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+				<li  class="{{ $currentRoute == 'about-us' ? 'active-menu' : '' }}">
+					<a href="{{ route('about-us') }}">About</a>
 				</li>
 
-				<li>
-					<a href="blog.html">Blog</a>
-				</li>
-
-				<li>
-					<a href="about.html">About</a>
-				</li>
-
-				<li>
-					<a href="contact.html">Contact</a>
+				<li  class="{{ $currentRoute == 'contact' ? 'active-menu' : '' }}">
+					<a href="{{ route('contact') }}">Contact</a>
 				</li>
 			</ul>
 		</div>

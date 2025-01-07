@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\UserFormRequest;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -14,7 +15,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = Customer::all();
         return view('admin.user.index', compact('users'));
     }
 
@@ -60,7 +61,7 @@ class UserController extends Controller
 
     public function delete($user_id)
     {
-        $user= User::find($user_id);
+        $user= Customer::find($user_id);
         if ($user) {
             $user->delete();
     

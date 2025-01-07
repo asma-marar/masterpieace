@@ -17,7 +17,7 @@
         </div>
         @endif
 
-        <table id="exampleTable" class="table-sm table-boardered">
+        <table id="exampleTable" class="table table-boardered">
             <thead>
                 <tr>
                     <th>Order ID</th>
@@ -27,7 +27,6 @@
                     <th>Status</th>
                     <th>View</th>
                     <th>Edit</th>
-                    <th>Delete</th>
                 </tr>
             </thead>
 
@@ -36,8 +35,8 @@
                     
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->user->name }}</td>
-                    <td>{{ $item->user->email }}</td>
+                    <td>{{ $item->customer->name }}</td>
+                    <td>{{ $item->customer->email }}</td>
                     <td>{{ $item->order_total }}</td>
                     <td>{{ ucfirst($item->order_status) }}</td>
                     <td>
@@ -56,15 +55,13 @@
                         Edit
                     </a>
                     </td>
-                    <td>
+                    {{-- <td>
                         <form action="{{ url('admin/delete-order/' . $item->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-                        
-                        {{-- <a href="{{ url ('admin/delete-user/' . $item->id)}}" class="btn btn-danger">Delete</a> --}}
-                    </td>
+                    </td> --}}
                 </tr>
 
                 @endforeach
@@ -74,4 +71,5 @@
     </div>
 
 </div>
+
 @endsection

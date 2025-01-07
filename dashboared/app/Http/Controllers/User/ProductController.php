@@ -18,13 +18,16 @@ class ProductController extends Controller
 
         // Fetch products based on the category filter or fetch all if no filter is applied
         $products = Product::with('category')
+        ->where('quantity', '>', 0) // Add this condition to filter out sold out products
+
         ->when($categoryId, function ($query) use ($categoryId) {
             $query->where('category_id', $categoryId);
         })
         ->when($searchTerm, function ($query) use ($searchTerm) {
             $query->where('name', 'LIKE', '%' . $searchTerm . '%');
         })
-        ->get();
+        ->orderBy('created_at', 'desc')   
+        ->paginate(8);
         $categoriesAll = Category::all();
 
         return view('front.product', compact('products', 'categoriesAll'));

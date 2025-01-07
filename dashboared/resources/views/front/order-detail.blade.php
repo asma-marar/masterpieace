@@ -5,26 +5,15 @@
 
 @section('content')
 
-<!-- breadcrumb -->
-<div class="container">
-    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-        <a href="/" class="stext-109 cl8 hov-cl1 trans-04">
-            Home
-            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-        </a>
-
-        <a href="/cart" class="stext-109 cl8 hov-cl1 trans-04">
-            Shopping Cart
-            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-        </a>
-
-        <span class="stext-109 cl4">
-            Checkout
-        </span>
-    </div>
-</div>
-
 <!-- Checkout Content -->
+<section class="bg0 p-t-23 p-b-140">
+    <div class="container">
+        <div class="p-b-45">
+            <h3 class="ltext-106 cl5 txt-center">
+                Checkout 
+            </h3>
+        </div>
+
 <div class="container p-t-50 p-b-50">
     <div class="row">
         <!-- Billing Details -->
@@ -126,5 +115,7 @@
         </div>
     </div>
 </div>
+    </div>
+</section>
 
 @endsection

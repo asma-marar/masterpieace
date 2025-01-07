@@ -7,7 +7,7 @@
     />
     <link
       rel="icon"
-      href="{{ asset ('assets') }}/img/kaiadmin/favicon.ico"
+      href="{{ asset ('assets') }}/img/kaiadmin/favicon1.ico"
       type="image/x-icon"
     />
 
@@ -52,8 +52,10 @@
     <link rel="stylesheet" href="{{ asset ('assets') }}/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ asset ('assets') }}/css/plugins.min.css" />
     <link rel="stylesheet" href="{{ asset ('assets') }}/css/kaiadmin.min.css" />
+    <link rel="stylesheet" href="{{ asset ('assets') }}/css/kaiadmin.css" />
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset ('assets') }}/css/demo.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   </head>
+

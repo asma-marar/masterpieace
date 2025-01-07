@@ -8,7 +8,9 @@
 
     <div class="card mt-4">
         <div class="card-header">
-            <h4> View Users <a href="{{ url ('admin/add-user')}}" class="btn btn-primary btn-sm float-end" > Add Users </a> </h4>
+            <h4> View Users 
+                {{-- <a href="{{ url ('admin/add-user')}}" class="btn btn-primary btn-sm float-end" > Add Users </a> --}}
+             </h4>
         </div>
     <div class="card-body">
 
@@ -17,16 +19,15 @@
         </div>
         @endif
 
-        <table id="exampleTable" class="table-sm table-boardered">
+        <table id="exampleTable" class="table table-boardered">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>User Name</th>
                     <th>User Email</th>
                     <th>User phone</th>
-                    <th>Role</th>
+                    <th>Address</th>
                     <th>City</th>
-                    <th>Edit</th>
+                    {{-- <th>Edit</th> --}}
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -35,15 +36,14 @@
                 @foreach ($users as $item )
                     
                 <tr>
-                    <td>{{ $item->id }}</td>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->email }}</td>
                     <td>{{ $item->phone }}</td>
                     <td>
-                    {{ $item->role == 'admin' ? 'Admin' : ($item->role == 'intermediary' ? 'Intermediary' : 'Customer') }}
+                    {{ $item->address }}
                     </td>
                     <td>{{ $item->city }}</td>
-                    <td><a href="{{ url ('admin/edit-user/' . $item->id)}}" class="btn btn-success">Edit</a></td>
+                    {{-- <td><a href="{{ url ('admin/edit-user/' . $item->id)}}" class="btn btn-success">Edit</a></td> --}}
                     <td>
                         <form action="{{ url('admin/delete-user/' . $item->id) }}" method="POST" style="display: inline;">
                             @csrf

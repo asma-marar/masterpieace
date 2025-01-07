@@ -406,75 +406,25 @@
 		</div>
 	</section>
 
-	<section class="how-it-works">
-		<h2 class="homepage__headers h1 homepage__header-refresh">How It Works</h2>
+	<script>function showSection(section) {
+		const sellerSection = document.getElementById('sellerSection');
+		const buyerSection = document.getElementById('buyerSection');
+		const sellerTab = document.getElementById('sellerTab');
+		const buyerTab = document.getElementById('buyerTab');
 	  
-		<!-- Navigation Tabs -->
-		<nav class="navigation--horizontal homepage__how-nav al--center tr--uppercase">
-		  <ul class="navigation--horizontal__list">
-			<li class="navigation--horizontal__tab" onclick="showSection('seller')" style="width:50%;">
-			  <a class="navigation--horizontal__link" id="sellerTab">
-				<span>I Am a Seller</span>
-			  </a>
-			</li>
-			<li class="navigation--horizontal__tab" onclick="showSection('buyer')" style="width:50%;">
-			  <a class="navigation--horizontal__link navigation--horizontal__link--selected" id="buyerTab">
-				<span>I Am a Buyer</span>
-			  </a>
-			</li>
-		  </ul>
-		</nav>
-	  
-		<!-- Seller Section -->
-		<ul id="sellerSection" class="homepage__how__steps d--fl homepage__how__steps--new">
-		  <li class="m--r--4">
-			<div><img src="img-seller-list it@2x-7dd6cb4847d00b8228848560242d77cf9d3aeae40dd0532e031330cbb5a64ffc.png" alt="LIST PRODUCTS" class="homepage__how__steps__img-new br-rad--x-large"></div>
-			<div class="ta--c">
-			  <h2 class="tr--uppercase homepage__how-sub-header">LIST PRODUCTS</h2>
-			  <p class="fsz--large p--t--2">Post your Shein items available for immediate delivery.</p>
-			</div>
-		  </li>
-		  <li class="m--r--4">
-			<div><img src="istockphoto-1346872828-1024x1024.jpg" alt="SET LOCATION" class="homepage__how__steps__img-new br-rad--x-large"></div>
-			<div class="ta--c">
-			  <h2 class="tr--uppercase homepage__how-sub-header">SET LOCATION</h2>
-			  <p class="fsz--large p--t--2">Specify your pickup location for easy transactions.</p>
-			</div>
-		  </li>
-		  <li class="m--r--4">
-			<div><img src="annie-spratt-BJ3g2Ck2WfE-unsplash.jpg" alt="CONNECT WITH BUYERS" class="homepage__how__steps__img-new br-rad--x-large"></div>
-			<div class="ta--c">
-			  <h2 class="tr--uppercase homepage__how-sub-header">CONNECT WITH BUYERS</h2>
-			  <p class="fsz--large p--t--2">Coordinate with buyers for fast handovers.</p>
-			</div>
-		  </li>
-		</ul>
-	  
-		<!-- Buyer Section -->
-		<ul id="buyerSection" class="homepage__how__steps d--fl homepage__how__steps--new" style="display: none;">
-		  <li class="m--r--4">
-			<div><img src="ellie-ellien-RHxEwq2QD3w-unsplash.jpg" alt="FIND YOUR STYLE" class="homepage__how__steps__img-new br-rad--x-large"></div>
-			<div class="ta--c">
-			  <h2 class="tr--uppercase homepage__how-sub-header">FIND YOUR STYLE</h2>
-			  <p class="fsz--large p--t--2">Discover Shein items near you for instant delivery.</p>
-			</div>
-		  </li>
-		  <li class="m--r--4">
-			<div><img src="matthew-fournier-GIudaMzhA94-unsplash.jpg" alt="CONTACT SELLER" class="homepage__how__steps__img-new br-rad--x-large"></div>
-			<div class="ta--c">
-			  <h2 class="tr--uppercase homepage__how-sub-header">CONTACT SELLER</h2>
-			  <p class="fsz--large p--t--2">Reach out to the seller and confirm details quickly.</p>
-			</div>
-		  </li>
-		  <li class="m--r--4">
-			<div><img src="pexels-mike-jones-9461229.jpg" alt="PICK UP ITEM" class="homepage__how__steps__img-new br-rad--x-large"></div>
-			<div class="ta--c">
-			  <h2 class="tr--uppercase homepage__how-sub-header">PICK UP ITEM</h2>
-			  <p class="fsz--large p--t--2">Meet locally for instant pickup.</p>
-			</div>
-		  </li>
-		</ul>
-	  </section>
+		if (section === 'seller') {
+		  sellerSection.style.display = 'flex';
+		  buyerSection.style.display = 'none';
+		  sellerTab.classList.add('navigation--horizontal__link--selected');
+		  buyerTab.classList.remove('navigation--horizontal__link--selected');
+		} else {
+		  buyerSection.style.display = 'flex';
+		  sellerSection.style.display = 'none';
+		  buyerTab.classList.add('navigation--horizontal__link--selected');
+		  sellerTab.classList.remove('navigation--horizontal__link--selected');
+		}
+	  }
+	 </script> 
 	  
 	
 

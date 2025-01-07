@@ -3,12 +3,11 @@
 @section('header-class', 'header-v4')
 @section('content')
     <!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{ asset ('front-assets') }}/images/bg-01.jpg');">
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('{{ asset ('front-assets') }}/images/39a746d6-ad89-4958-8a4a-6c508d7c8129.jfif');">
 		<h2 class="ltext-105 cl0 txt-center">
-			About
+			About Us
 		</h2>
 	</section>	
-
 
 	<!-- Content page -->
 	<section class="bg0 p-t-75 p-b-120">
@@ -21,28 +20,27 @@
 						</h3>
 
 						<p class="stext-113 cl6 p-b-26">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat consequat enim, non auctor massa ultrices non. Morbi sed odio massa. Quisque at vehicula tellus, sed tincidunt augue. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas varius egestas diam, eu sodales metus scelerisque congue. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas gravida justo eu arcu egestas convallis. Nullam eu erat bibendum, tempus ipsum eget, dictum enim. Donec non neque ut enim dapibus tincidunt vitae nec augue. Suspendisse potenti. Proin ut est diam. Donec condimentum euismod tortor, eget facilisis diam faucibus et. Morbi a tempor elit.
+							Welcome to LumiPick, a platform designed to bridge the gap between Shein intermediaries and customers in our community. Our journey started with a simple goal: to provide an efficient and user-friendly marketplace where intermediaries can showcase their unsold Shein products and customers can shop locally for immediate delivery. By bringing intermediaries and buyers together, we aim to create a seamless shopping experience that is both convenient and trustworthy.
 						</p>
 
 						<p class="stext-113 cl6 p-b-26">
-							Donec gravida lorem elit, quis condimentum ex semper sit amet. Fusce eget ligula magna. Aliquam aliquam imperdiet sodales. Ut fringilla turpis in vehicula vehicula. Pellentesque congue ac orci ut gravida. Aliquam erat volutpat. Donec iaculis lectus a arcu facilisis, eu sodales lectus sagittis. Etiam pellentesque, magna vel dictum rutrum, neque justo eleifend elit, vel tincidunt erat arcu ut sem. Sed rutrum, turpis ut commodo efficitur, quam velit convallis ipsum, et maximus enim ligula ac ligula. 
+							Whether you're an intermediary looking to sell your products or a customer seeking a Lumi and easy shopping experience, LumiPick is here to serve your needs. Our platform not only helps intermediaries reduce their inventory but also empowers customers by providing instant access to a variety of products, complete with detailed location-based information for smooth handovers.
 						</p>
 
 						<p class="stext-113 cl6 p-b-26">
-							Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+							If you have any questions or need assistance, feel free to reach out to us. We're here to help you every step of the way!
 						</p>
 					</div>
 				</div>
 
 				<div class="col-11 col-md-5 col-lg-4 m-lr-auto">
-					<div class="how-bor1 ">
+					<div class="how-bor1">
 						<div class="hov-img0">
-							<img src="{{ asset ('assets') }}/images/about-01.jpg" alt="IMG">
+							<img src="{{  asset ('front-assets/images/836ac844-2bb2-40a8-be31-e61459e6180b.jfif') }}" alt="About Us">
 						</div>
 					</div>
 				</div>
 			</div>
-			
 			<div class="row">
 				<div class="order-md-2 col-md-7 col-lg-8 p-b-30">
 					<div class="p-t-7 p-l-85 p-l-15-lg p-l-0-md">
@@ -51,16 +49,21 @@
 						</h3>
 
 						<p class="stext-113 cl6 p-b-26">
-							Mauris non lacinia magna. Sed nec lobortis dolor. Vestibulum rhoncus dignissim risus, sed consectetur erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam maximus mauris sit amet odio convallis, in pharetra magna gravida. Praesent sed nunc fermentum mi molestie tempor. Morbi vitae viverra odio. Pellentesque ac velit egestas, luctus arcu non, laoreet mauris. Sed in ipsum tempor, consequat odio in, porttitor ante. Ut mauris ligula, volutpat in sodales in, porta non odio. Pellentesque tempor urna vitae mi vestibulum, nec venenatis nulla lobortis. Proin at gravida ante. Mauris auctor purus at lacus maximus euismod. Pellentesque vulputate massa ut nisl hendrerit, eget elementum libero iaculis.
+							At LumiPick, our mission is to empower local businesses and streamline the shopping experience for customers. By offering a platform that connects Shein intermediaries and local buyers, we aim to:
 						</p>
+						<ul class="stext-113 cl6 p-b-26">
+							<li>Reduce intermediaries' inventory challenges by giving them a direct channel to sell unsold products.</li>
+							<li>Provide customers with immediate access to affordable and trendy items without long shipping delays.</li>
+							<li>Enhance local commerce by fostering connections within the community.</li>
+						</ul>
 
 						<div class="bor16 p-l-29 p-b-9 m-t-22">
 							<p class="stext-114 cl6 p-r-40 p-b-11">
-								Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn't really do it, they just saw something. It seemed obvious to them after a while.
+								"Great businesses are built on relationships. At LumiPick, we believe in creating meaningful connections between sellers and buyers, making shopping more personal and efficient."
 							</p>
 
 							<span class="stext-111 cl8">
-								- Steve Job’s 
+								- LumiPick Team
 							</span>
 						</div>
 					</div>
@@ -69,12 +72,11 @@
 				<div class="order-md-1 col-11 col-md-5 col-lg-4 m-lr-auto p-b-30">
 					<div class="how-bor2">
 						<div class="hov-img0">
-							<img src="{{ asset ('assets') }}/images/about-02.jpg" alt="IMG">
+							<img src="{{ asset('front-assets/images/be1a04da-c95e-4352-866c-4a207226eb5b.jfif') }}" alt="Our Mission">
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>	
-	
 @endsection

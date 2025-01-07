@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 class DashboardController extends Controller
 {
     public function index(){
-        $users= User::whereIn('role', ['customer', 'intermediary'])->count();
+        $users= Customer::whereIn('role', ['buyer'])->count();
         $products= Product::count();
         $orders= Order::count();
         $totalSales = Order::where('order_status', 'delivered')
@@ -23,7 +24,7 @@ class DashboardController extends Controller
         $chart = new LaravelChart([
             'chart_title' => 'Users by Day',
             'report_type' => 'group_by_date',
-            'model' => 'App\Models\User',
+            'model' => 'App\Models\Customer',
             'group_by_field' => 'created_at',
             'group_by_period' => 'day',
             'chart_type' => 'bar',
